@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Home Page";
+    ViewBag.isLogin = HttpContextAccessor.HttpContext.Session.GetInt32("isLogin");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="card">
+        @Html.ActionLink("Danh sách Idol","Index","Idol", null, new { @class = "page-scroll" })
+    </div>
+    @if (ViewBag.isLogin == null || ViewBag.isLogin == 0)
+    {
+        @Html.ActionLink("Đăng nhập","Login","Auth", null, new { @class = "page-scroll" })
+    }
+    else
+    {
+        <h4>Xin chào @HttpContextAccessor.HttpContext.Session.GetString("userName") </h4>
+        <h5>@Html.ActionLink("Đăng xuất","Logout","Auth", null, new { @class = "page-scroll" })</h5>
+    }
+</div>

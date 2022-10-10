@@ -1,0 +1,88 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<WebNangCao_MVC.Models.Idol.IdolProfile>
+@{
+}
+<style>
+    .idol-avatar-content {
+        width: 150px; /* or whatever is required */
+        height: 150px;
+        text-align: center; /* ensures the image is always in the h-middle */
+        overflow: hidden; /* hide the cropped portion */
+    }
+
+    .idol-avatar {
+        position: relative; /* allows repositioning */
+        left: 100%; /* move the whole width of the image to the right */
+        margin-left: -200%; /* magic! */
+        height: 250px;
+       
+    }
+
+    .message-log
+    {
+        color: red;
+    }
+</style>
+<h1>Idol list</h1>
+
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-outline-primary" asp-action="AddNewIdol">Create New</a>
+</p>
+<h3 class="message-log">@ViewBag.Message</h3>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Avatar
+                </th>
+                <th>
+                    Full name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th></th>
+                <th>Edit Action</th>
+                <th>Delete Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+
+                        <div class="idol-avatar-content">
+                            <img class="idol-avatar" src="@Html.DisplayFor(modelItem => item.avatar)">
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                    <td class="text-center">
+                        <a asp-action="IdolEdit" class="btn btn-outline-primary" asp-route-idolid="@item.id">Edit</a>
+                    </td>      
+                    <td class="text-center">
+                        <a asp-action="IdolDelete" class="btn btn-outline-danger" asp-route-idolid="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
